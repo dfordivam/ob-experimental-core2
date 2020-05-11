@@ -21,8 +21,9 @@ project ./. ({ pkgs, hackGet, ... }: {
     jsaddle = self.callCabal2nix "jsaddle" (jsaddle-src + /jsaddle) {};
     jsaddle-warp = pkgs.haskell.lib.dontCheck (self.callCabal2nix "jsaddle-warp" (jsaddle-src + /jsaddle-warp) {});
     jsaddle-webkit2gtk = null;
-    jsaddle-dom = pkgs.haskell.lib.dontCheck (pkgs.haskell.lib.appendPatch super.jsaddle-dom ./remove-inAnimationFrame.patch);
+    jsaddle-dom = pkgs.haskell.lib.dontCheck (pkgs.haskell.lib.appendPatch super.jsaddle-dom ./fix-jsaddle-dom.patch);
     reflex-dom = null;
     reflex-dom-core = pkgs.haskell.lib.dontCheck super.reflex-dom-core;
+    # reflex-dom-core = pkgs.haskell.lib.dontCheck (self.callCabal2nix "reflex-dom-core" (reflex-dom-src + /reflex-dom-core) {});
   };
 })
